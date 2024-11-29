@@ -16,9 +16,21 @@ function App() {
 
   const addElement = (el) => {
     setTodo((prev) => {
-      const newValue = [...prev, el];
-      return newValue;
+      const prevValue = [...prev, el];
+      return prevValue;
     });
+  };
+
+  const deleteElement = (el) => {
+    setTodo((prev) => {
+      const updatedValue = prev.filter((item) => item !== el);
+      return updatedValue;
+    });
+
+    setDone((prev) => {
+      const updatedValue = prev.filter((item) => item !== el);
+      return updatedValue;
+    })
   };
 
   return (
@@ -31,10 +43,17 @@ function App() {
             <input 
               type="button" 
               value="Zrobione"
+              onClick={() => {
+                setDone((prev) => [...prev, item]);
+                setTodo((prev) => prev.filter((e) => e !== item));
+              }}
             />
             <input 
               type="button"
               value="Usuń"
+              onClick={() => {
+                setTodo((prev) => prev.filter((e) => e !== item));
+              }}
             />
           </div>
         ))}
@@ -46,11 +65,18 @@ function App() {
             <strong>{item}</strong>
             <input 
               type="button" 
-              value="Zrobione"
+              value="Przywróć"
+              onClick={() => {
+                setTodo((prev) => [...prev, item]);
+                setDone((prev) => prev.filter((e) => e !== item));
+              }}
             />
             <input 
               type="button"
               value="Usuń"
+              onClick={() => {
+                setDone((prev) => prev.filter((e) => e !== item));
+              }}
             />
           </div>
         ))}
