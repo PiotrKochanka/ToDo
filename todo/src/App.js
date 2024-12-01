@@ -3,35 +3,29 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-  const [todo, setTodo] = useState([
+  const [todo, setTodo] = useState(() => {
+    const savedTodo = localStorage.getItem('todo');
+    return savedTodo ? JSON.parse(savedTodo) : [
     'todo1',
     'todo2',
     'todo3',
-  ]);
-  const [done, setDone] = useState([
+  ]});
+  const [done, setDone] = useState(() => {
+    const savedDone = localStorage.getItem('done');
+    return savedDone ? JSON.parse(savedDone) : [
     'done1',
     'done2',
     'done3',
-  ]);
+  ]});
 
   const addElement = (el) => {
     setTodo((prev) => {
-      const prevValue = [...prev, el];
-      return prevValue;
+      const newTodo = [...prev, el];
+      localStorage.setItem('todo', JSON.stringify(newTodo));
+      return newTodo;
     });
   };
 
-  const deleteElement = (el) => {
-    setTodo((prev) => {
-      const updatedValue = prev.filter((item) => item !== el);
-      return updatedValue;
-    });
-
-    setDone((prev) => {
-      const updatedValue = prev.filter((item) => item !== el);
-      return updatedValue;
-    })
-  };
 
   return (
     <div className="App">
@@ -44,15 +38,27 @@ function App() {
               type="button" 
               value="Zrobione"
               onClick={() => {
-                setDone((prev) => [...prev, item]);
-                setTodo((prev) => prev.filter((e) => e !== item));
+                setDone((prev) => {
+                  const backDone = [...prev, item];
+                  localStorage.setItem('done', JSON.stringify(backDone));
+                  return backDone;
+                });
+                setTodo((prev) => {
+                  const deleteTodo = prev.filter((e) => e !== item);
+                  localStorage.setItem('todo', JSON.stringify(deleteTodo));
+                  return deleteTodo;
+                });
               }}
             />
             <input 
               type="button"
               value="Usuń"
               onClick={() => {
-                setTodo((prev) => prev.filter((e) => e !== item));
+                setTodo((prev) => {
+                  const deleteTodo = prev.filter((e) => e !== item)
+                  localStorage.setItem('todo', JSON.stringify(deleteTodo));
+                  return deleteTodo;
+                });
               }}
             />
           </div>
@@ -67,15 +73,27 @@ function App() {
               type="button" 
               value="Przywróć"
               onClick={() => {
-                setTodo((prev) => [...prev, item]);
-                setDone((prev) => prev.filter((e) => e !== item));
+                setTodo((prev) => {
+                  const backTodo = [...prev, item];
+                  localStorage.setItem('todo', JSON.stringify(backTodo));
+                  return backTodo;
+                });
+                setDone((prev) => {
+                  const deleteDone = prev.filter((e) => e !== item);
+                  localStorage.setItem('done', JSON.stringify(deleteDone));
+                  return deleteDone;
+                });
               }}
             />
             <input 
               type="button"
               value="Usuń"
               onClick={() => {
-                setDone((prev) => prev.filter((e) => e !== item));
+                setDone((prev) => {
+                  const deleteDone = prev.filter((e) => e !== item);
+                  localStorage.setItem('done', JSON.stringify(deleteDone));
+                  return deleteDone;
+                });
               }}
             />
           </div>
