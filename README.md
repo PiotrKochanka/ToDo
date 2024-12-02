@@ -20,5 +20,5 @@ Prosta aplikacja TODO stworzona w React, która pozwala użytkownikom zarządza�
 
 1. Sklonuj repozytorium:
    ```bash
-   git clone https://github.com/twoja-nazwa-uzytkownika/prosta-aplikacja-todo.git
+   git clone https://github.com/PiotrKochanka/ToDo.git
 
