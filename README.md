@@ -16,10 +16,6 @@ Prosta aplikacja TODO stworzona w React, która pozwala użytkownikom zarządza�
 - JavaScript (Logika)
 - CSS (Stylowanie)
 
-## 🖼️ Zrzuty ekranu
-
-![Zrzut ekranu aplikacji](screenshot.png)
-
 ## 🧩 Instalacja i konfiguracja
 
 1. Sklonuj repozytorium:
